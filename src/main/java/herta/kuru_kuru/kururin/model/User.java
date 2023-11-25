@@ -1,33 +1,37 @@
 package herta.kuru_kuru.kururin.model;
 
-import herta.kuru_kuru.kururin.model.enums.UserRole;
+import lombok.*;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDate;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
 
-    private LocalDate creationDate;
+    @Column(name = "role_name")
+    private String roleName;
 
-    private UserRole role = UserRole.USER;
+    @Column(name = "enabled")
+    private boolean enabled;
+
 }

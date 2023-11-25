@@ -32,4 +32,6 @@ public class LoginCredentialsDTO {
     private String userAgent;
 
     private Long loginAttemptAt;
+
+    private String Email;
 }

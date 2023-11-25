@@ -1,32 +1,23 @@
-package herta.kuru_kuru.kururin.controller;
+package herta.kuru_kuru.kururin.auth.user_registration;
 
-import herta.kuru_kuru.kururin.dto.RegistrationCredentialsDTO;
 import herta.kuru_kuru.kururin.model.User;
-import herta.kuru_kuru.kururin.exceptions.BadRequestException;
-import herta.kuru_kuru.kururin.exceptions.EmailExistsException;
-import herta.kuru_kuru.kururin.exceptions.UsernameExistsException;
 import herta.kuru_kuru.kururin.repository.UserRepository;
-import herta.kuru_kuru.kururin.infrastructure.security.PasswordEncoderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-
-public class UserController {
+public class UserRegistrationServiceImpl implements UserRegistrationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserRegistrationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody RegistrationCredentialsDTO registrationCredentials) {
+    @Override
+    public void registerUser(RegistrationCredentialsDTO registrationCredentials) throws UserRegistrationException {
         if (!isValidRegistrationCredentials(registrationCredentials)) {
-            throw new BadRequestException("Invalid registration credentials");
+            throw new InvalidRegistrationCredentialsException("Invalid registration credentials");
         }
 
         if (userRepository.existsByUsername(registrationCredentials.getUsername())) {
@@ -45,11 +36,7 @@ public class UserController {
         user.setPassword(hashedPassword);
         user.setEnabled(true);
 
-        user = userRepository.save(user);
-
-        user.setPassword(null);
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        userRepository.save(user);
     }
 
     private boolean isValidRegistrationCredentials(RegistrationCredentialsDTO registrationCredentials) {
