@@ -5,9 +5,11 @@ import herta.kuru_kuru.kururin.model.Task;
 import herta.kuru_kuru.kururin.model.enums.TaskState;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByState(TaskState state);

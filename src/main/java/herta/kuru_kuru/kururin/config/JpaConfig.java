@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "herta.kuru_kuru.kururin.repository")
 @EnableTransactionManagement
 public class JpaConfig {
-    // Additional JPA configurations лif needed
+    // Additional JPA configurations if needed
 }
