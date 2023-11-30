@@ -2,6 +2,7 @@ package herta.kuru_kuru.kururin.model;
 
 import herta.kuru_kuru.kururin.model.enums.TaskState;
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,3 +46,4 @@ public class Task {
         this.state = TaskState.DONE;
     }
 }
+

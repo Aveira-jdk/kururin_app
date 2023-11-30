@@ -8,19 +8,19 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-    public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<Task, Long> {
 
-        List<Task> findByState(TaskState state);
+    List<Task> findByState(TaskState state);
 
-        List<Task> findByCategory(Category category);
+    List<Task> findByCategory(Category category);
 
-        List<Task> findByStateAndCategory(TaskState state, Category category);
+    List<Task> findByStateAndCategory(TaskState state, Category category);
 
-        @Query("SELECT t FROM Task t WHERE t.dueDate IS NOT NULL ORDER BY t.dueDate")
-        List<Task> findUpcomingTasks();
+    @Query("SELECT t FROM Task t WHERE t.dueDate IS NOT NULL ORDER BY t.dueDate")
+    List<Task> findUpcomingTasks();
 
-        @Query("SELECT t FROM Task t WHERE t.priority IS NOT NULL ORDER BY t.priority DESC")
-        List<Task> findHighPriorityTasks();
+    @Query("SELECT t FROM Task t WHERE t.priority IS NOT NULL ORDER BY t.priority DESC")
+    List<Task> findHighPriorityTasks();
 
-        List<Task> findByCategoryAndState(Category category, TaskState state);
-    }
+    List<Task> findByCategoryAndState(Category category, TaskState state);
+}
