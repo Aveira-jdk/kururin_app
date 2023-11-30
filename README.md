@@ -1,6 +1,7 @@
 # kururin_app
 
 ##OUT OF SERVICE
+
 Kururin is a not working task management system designed to "help?" users organize and track their tasks (not)efficiently.
 
 ## Table of Contents
